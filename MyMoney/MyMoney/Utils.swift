@@ -8,6 +8,64 @@
 import SwiftUI
 
 extension ContentView {
+    
+    struct AddAvailableBalance: View {
+        @State var ab: String = ""
+        @ObservedObject var w1: Wallet1_Obs
+        @Binding var setAvailableBalance: Bool
+        
+            
+        
+        var body: some View{
+            ZStack{
+                ZStack{
+                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                        .shadow(radius: 5.0)
+                        .foregroundColor(.white)
+                        .frame(width: 270, height: 165)
+                        .transition(.slide)
+                    VStack{
+                        Text("Saldo disponibile")
+                            .font(.system(size: 17))
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: 300, alignment: .center)
+                            .foregroundColor(.black)
+                            .offset(x: 0, y: 0)
+                        Text("Inserisci l'attuale saldo disponibile")
+                            .font(.system(size: 14))
+                            .fontWeight(.regular)//bold)
+                            .frame(maxWidth: 300, alignment: .center)
+                            .foregroundColor(.black)
+                            .offset(x: 0, y: 5)
+                        Text("nel tuo conto")
+                            .font(.system(size: 14))
+                            .fontWeight(.regular)//bold)
+                            .frame(maxWidth: 300, alignment: .center)
+                            .foregroundColor(.black)
+                            .offset(x: 0, y: 5)
+                        TextField("Saldo disponibile", text: $ab)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.system(size: 15))
+                            .frame(maxWidth: 250, alignment: .center)
+                            .offset(x: 0, y: 0)
+                        Divider()
+                        Button(action: {
+                            if ab != ""{
+                                w1.setAvailableBalance(value: Float(ab)!)
+                            }
+                            setAvailableBalance.toggle()
+                        }, label: {
+                            Text("OK")
+                                .frame(maxWidth: 250, alignment: .center)
+                                .offset(x: 0, y: 5)
+                        })
+                    }
+                }.offset(x: 0, y: -350)
+                
+            }
+        }
+    }
+    
     struct AddBugdet: View {
         @State var b: String = ""
         @ObservedObject var c: Controls

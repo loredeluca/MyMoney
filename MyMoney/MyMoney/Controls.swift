@@ -10,6 +10,16 @@ import SwiftUI
 class Controls: ObservableObject{
     
     @Published var thereiscard : [Bool] = [true, false, false]
+    @Published var card : [String] = ["portafoglio"]
+    
+    func cardAppend(value: String){
+        card.append(value)
+    }
+    func cardCount()->Int{
+        return card.count
+    }
+    
+    
     // FIRST PAGE
     @Published var expanded1: Bool = false
     @Published var expanded2: Bool = false

@@ -11,7 +11,7 @@ struct NewCardSheet: View {
     @ObservedObject var c: Controls
     @ObservedObject var w1: Wallet1_Obs
     
-    @State var card : [String] = ["portafoglio"]
+    //@State var card : [String] = ["portafoglio"]
     //sheet
     @State var isShowSheet = false
     
@@ -33,7 +33,7 @@ struct NewCardSheet: View {
     
     var body: some View {
         Button(action: {
-            if card.count == 3{
+            if c.cardCount() == 3{
                 self.showingAlert = true
             }
             else{
@@ -157,10 +157,10 @@ struct NewCardSheet: View {
     func addCard(){
         self.isShowSheet.toggle()
         c.app(name: name, circuit: circuitEntry[circuitTag])
-        card.append(circuitEntry[circuitTag])
-        c.setCardColor(value: card.count - 1, color: bgColor)
+        c.cardAppend(value: circuitEntry[circuitTag])
+        c.setCardColor(value: c.cardCount() - 1, color: bgColor)
         //c.setCardTotBal(value: card.count-1, amount: Int(amount) ?? 0)
-        c.thereiscard[card.count - 1] = true
+        c.thereiscard[c.cardCount() - 1] = true
         name = ""
         selectedEntryIndex = 0
         amount = ""

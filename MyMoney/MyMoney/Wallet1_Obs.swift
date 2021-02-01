@@ -9,7 +9,7 @@ import SwiftUI
 
 class Wallet1_Obs: ObservableObject{
     //wallet = [Total, in, out]
-    @Published var wallet = [0, 0, 0]
+    @Published var wallet : [Float] = [0, 0, 0]
     @Published var newoperation : [String] = []
     @Published var newcategory : [String] = []
     @Published var image : [String] = []
@@ -20,13 +20,22 @@ class Wallet1_Obs: ObservableObject{
     //Entrate
     @Published var entryOperation : [String] = []
     @Published var entryCategory : [String] = []
+    @Published var INOp : [Float] = []
     //Uscite
     @Published var exitOperation : [String] = []
     @Published var exitCategory : [String] = []
+    @Published var OUTOp : [Float] = []
+    
+    func addINOp(value: Float){
+        INOp.append(value)
+    }
+    func addOUTOp(value: Float){
+        OUTOp.append(value)
+    }
     
     
     //Saldo disponibile
-    @Published var  availableBalance : Float = 100.0 //da settare
+    @Published var  availableBalance : Float = 0.0 //da settare
     @Published var tmp_ab : Float = 0.0
     
     func setAvailableBalance(value: Float){
@@ -49,12 +58,12 @@ class Wallet1_Obs: ObservableObject{
 
     
     //wallet1
-    func add(value: Int){
+    func add(value: Float){
         wallet[1] = wallet[1] + value
         total()
         addAvailableBalance(value: Float(value))
     }
-    func remove(value: Int){
+    func remove(value: Float){
         wallet[2] = wallet[2] - value
         total()
         reduceAvailableBalance(value: Float(value))
@@ -62,13 +71,13 @@ class Wallet1_Obs: ObservableObject{
     func total(){
         wallet[0] = wallet[1]-abs(wallet[2])
     }
-    func getIn() -> Int {
+    func getIn() -> Float {
         return wallet[1]
     }
-    func getOut() -> Int {
+    func getOut() -> Float {
         return abs(wallet[2])
     }
-    func getTotal() -> Int {
+    func getTotal() -> Float {
         return wallet[0]
     }
     

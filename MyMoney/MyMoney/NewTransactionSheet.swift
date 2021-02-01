@@ -128,7 +128,8 @@ extension ContentView {
                                         w1.addName(value: name)
                                         w1.addDate(value: selectedDate)
                                         w1.addOperation(value: "+ € " + amount)
-                                        w1.add(value: Int(amount) ?? 0)
+                                        w1.addINOp(value: Float(amount)!)
+                                        w1.add(value: Float(amount) ?? 0)
                                         //c.updateCardTotBal(value: 0, op: Int(amount) ?? 0)
                                     }
                                     else{
@@ -137,7 +138,8 @@ extension ContentView {
                                         w1.addName(value: name)
                                         w1.addDate(value: selectedDate)
                                         w1.addOperation(value: "- € " + amount)
-                                        w1.remove(value: Int(amount) ?? 0)
+                                        w1.addOUTOp(value: Float(amount)!)
+                                        w1.remove(value: Float(amount) ?? 0)
                                         c.updateBudget(value: Float(amount) ?? 0)
                                         //c.updateCardTotBal(value: 0, op: Int(amount) ?? 0)
                                         //mywallet.reduceBudget(value: Int(amount) ?? 0)

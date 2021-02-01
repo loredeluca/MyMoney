@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,11 @@
 		EDD14A4C25C46AEF00E19788 /* LatestTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A4B25C46AEF00E19788 /* LatestTransactions.swift */; };
 		EDD14A5325C475AC00E19788 /* NewCardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A5225C475AC00E19788 /* NewCardSheet.swift */; };
 		EDD14A5625C4959800E19788 /* NewTransactionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A5525C4959800E19788 /* NewTransactionSheet.swift */; };
+		EDD14A5B25C739C600E19788 /* grafico.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A5A25C739C600E19788 /* grafico.swift */; };
+		EDD14A5F25C73A9100E19788 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = EDD14A5E25C73A9100E19788 /* SwiftUICharts */; };
+		EDD14A6225C7449400E19788 /* gr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A6125C7449400E19788 /* gr.swift */; };
+		EDD14A6525C748C700E19788 /* ma.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A6425C748C700E19788 /* ma.swift */; };
+		EDD14A6825C860E300E19788 /* InfoGraphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD14A6725C860E200E19788 /* InfoGraphs.swift */; };
 		EDF622AF25C3139B0023CAF7 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF622AE25C3139B0023CAF7 /* Controls.swift */; };
 		EDF622B225C3147D0023CAF7 /* Wallet1_Obs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF622B125C3147D0023CAF7 /* Wallet1_Obs.swift */; };
 		EDF622B525C315620023CAF7 /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF622B425C315620023CAF7 /* Cards.swift */; };
@@ -35,6 +40,10 @@
 		EDD14A4B25C46AEF00E19788 /* LatestTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestTransactions.swift; sourceTree = "<group>"; };
 		EDD14A5225C475AC00E19788 /* NewCardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardSheet.swift; sourceTree = "<group>"; };
 		EDD14A5525C4959800E19788 /* NewTransactionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionSheet.swift; sourceTree = "<group>"; };
+		EDD14A5A25C739C600E19788 /* grafico.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grafico.swift; sourceTree = "<group>"; };
+		EDD14A6125C7449400E19788 /* gr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gr.swift; sourceTree = "<group>"; };
+		EDD14A6425C748C700E19788 /* ma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ma.swift; sourceTree = "<group>"; };
+		EDD14A6725C860E200E19788 /* InfoGraphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoGraphs.swift; sourceTree = "<group>"; };
 		EDF622AE25C3139B0023CAF7 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 		EDF622B125C3147D0023CAF7 /* Wallet1_Obs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet1_Obs.swift; sourceTree = "<group>"; };
 		EDF622B425C315620023CAF7 /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
@@ -49,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDD14A5F25C73A9100E19788 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +87,16 @@
 				ED44B50F25C311AB002DC52D /* MyMoneyApp.swift */,
 				EDF622AE25C3139B0023CAF7 /* Controls.swift */,
 				ED44B51125C311AB002DC52D /* ContentView.swift */,
+				EDD14A6725C860E200E19788 /* InfoGraphs.swift */,
 				EDD14A4B25C46AEF00E19788 /* LatestTransactions.swift */,
 				EDD14A4825C461C800E19788 /* InformationBlocks.swift */,
 				EDF622BA25C318A80023CAF7 /* MainPage.swift */,
 				EDD14A5225C475AC00E19788 /* NewCardSheet.swift */,
 				EDF622BD25C31F330023CAF7 /* Utils.swift */,
 				EDF622C125C341610023CAF7 /* prova.swift */,
+				EDD14A6425C748C700E19788 /* ma.swift */,
+				EDD14A6125C7449400E19788 /* gr.swift */,
+				EDD14A5A25C739C600E19788 /* grafico.swift */,
 				EDD14A5525C4959800E19788 /* NewTransactionSheet.swift */,
 				EDF622B725C317200023CAF7 /* SheetAddCard.swift */,
 				EDF622B425C315620023CAF7 /* Cards.swift */,
@@ -118,6 +132,9 @@
 			dependencies = (
 			);
 			name = MyMoney;
+			packageProductDependencies = (
+				EDD14A5E25C73A9100E19788 /* SwiftUICharts */,
+			);
 			productName = MyMoney;
 			productReference = ED44B50C25C311AB002DC52D /* MyMoney.app */;
 			productType = "com.apple.product-type.application";
@@ -145,6 +162,9 @@
 				Base,
 			);
 			mainGroup = ED44B50325C311AB002DC52D;
+			packageReferences = (
+				EDD14A5D25C73A9100E19788 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = ED44B50D25C311AB002DC52D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -171,19 +191,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDD14A6825C860E300E19788 /* InfoGraphs.swift in Sources */,
 				EDD14A4C25C46AEF00E19788 /* LatestTransactions.swift in Sources */,
+				EDD14A6525C748C700E19788 /* ma.swift in Sources */,
 				EDD14A4925C461C800E19788 /* InformationBlocks.swift in Sources */,
 				EDD14A5325C475AC00E19788 /* NewCardSheet.swift in Sources */,
 				EDF622B525C315620023CAF7 /* Cards.swift in Sources */,
 				ED44B51225C311AB002DC52D /* ContentView.swift in Sources */,
 				EDF622B225C3147D0023CAF7 /* Wallet1_Obs.swift in Sources */,
 				EDF622AF25C3139B0023CAF7 /* Controls.swift in Sources */,
+				EDD14A6225C7449400E19788 /* gr.swift in Sources */,
 				ED44B51025C311AB002DC52D /* MyMoneyApp.swift in Sources */,
 				EDF622BB25C318A80023CAF7 /* MainPage.swift in Sources */,
 				EDF622B825C317200023CAF7 /* SheetAddCard.swift in Sources */,
 				EDF622BE25C31F330023CAF7 /* Utils.swift in Sources */,
 				EDD14A5625C4959800E19788 /* NewTransactionSheet.swift in Sources */,
 				EDF622C225C341610023CAF7 /* prova.swift in Sources */,
+				EDD14A5B25C739C600E19788 /* grafico.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +396,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EDD14A5D25C73A9100E19788 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EDD14A5E25C73A9100E19788 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDD14A5D25C73A9100E19788 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED44B50425C311AB002DC52D /* Project object */;
 }

@@ -17,7 +17,10 @@ extension ContentView {
             HStack{
                 VStack{
                     SaldoDisponibile1(c: c, w1: w1)
-                    BilancioMensile1(c: c, w1: w1)
+                    NavigationLink(destination: InfoGraphs(w1: w1)) {
+                        BilancioMensile1(c: c, w1: w1)
+                    }//.buttonStyle(PlainButtonStyle())
+                   
                 }
                 Spacer().frame(width: 1)
                 Budget1(c: c, w1: w1)
@@ -84,19 +87,19 @@ struct BilancioMensile1: View{
                     .foregroundColor(.black)
                     .offset(x: 20, y: -8)
                 VStack{
-                    Text("Totale € " + String(w1.getTotal()) )
+                    Text("Totale € \(w1.getTotal(), specifier: "%.2f")" )//+ String(w1.getTotal()) )
                         .font(.system(size: c.didTapW1[0] ? 18 : 15 ))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)
                         .foregroundColor(.blue)
                         .offset(x: 20, y: -3)
-                    Text("Entrate € " + String(w1.getIn()) )
+                    Text("Entrate € \(w1.getIn(), specifier: "%.2f")")// + String(w1.getIn()) )
                         .font(.system(size: c.didTapW1[1] ? 18 : 15))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)
                         .foregroundColor(.green)
                         .offset(x: 20, y: 2)
-                    Text("Uscite € " + String(w1.getOut()) )
+                    Text("Uscite € \(w1.getOut(), specifier: "%.2f")")// + String(w1.getOut()) )
                         .font(.system(size: c.didTapW1[2] ? 18 : 15))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)

@@ -12,6 +12,7 @@ struct ContentView: View {
     @ObservedObject var wallet1 = Wallet1_Obs()
     
     //@State var b: String = ""
+    @State var setAvailableBalance = false
     @State var setBudget = false
 
     var body: some View {
@@ -48,13 +49,18 @@ struct ContentView: View {
                 
                 //Pulsante Aggiungi Carte
                 NewCardSheet(c: controlli, w1: wallet1)
-                    .offset(x: 0, y: setBudget ? 105 : -50)
-                    .disabled(setBudget)
+                    .offset(x: 0, y: setBudget || setAvailableBalance ? 105 : -50)
+                    .disabled(setBudget || setAvailableBalance)
                 
                 //AddBudget
                 if setBudget{
                     AddBugdet(c: controlli,setBudget: $setBudget)
                 }
+                //AddAvailableBalance
+                if setAvailableBalance{
+                    AddAvailableBalance(w1: wallet1, setAvailableBalance: $setAvailableBalance)
+                }
+                
                 
                 
                 
@@ -68,23 +74,52 @@ struct ContentView: View {
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Menu{
-                        Section{
+                         Section{
                             Button(action: {
-                                setBudget.toggle()
+                                if !setBudget{
+                                    setAvailableBalance.toggle()
+                                }
+                                else{
+                                    setBudget.toggle()
+                                    setAvailableBalance.toggle()
+                                }
                             }) {
-                                Label("New Budget", systemImage: "archivebox")
+                                Label("Nuovo Saldo Disponibile", systemImage: "banknote")
                                         .foregroundColor(.red)
                             }
                             Button(action: {
-                                delete2()
+                                if !setAvailableBalance{
+                                    setBudget.toggle()
+                                }
+                                else{
+                                    setAvailableBalance.toggle()
+                                    setBudget.toggle()
+                                }
                             }) {
-                                Label("Remove old files", systemImage: "trash")
+                                Label("Nuovo Budget", systemImage: "archivebox")
                                         .foregroundColor(.red)
                             }
                         }
+
+                         Section(header: Text("Secondary actions")) {
+                             Button(action: {
+                                if controlli.thereiscard[2]{
+                                    delete2()
+                                }
+                                if controlli.thereiscard[1] && !controlli.thereiscard[2]{
+                                    delete1()
+                                }
+                                if !controlli.thereiscard[1] && !controlli.thereiscard[2]{
+                                    //non fa nulla
+                                }
+                             }) {
+                                 Label("Elimina Carta", systemImage: "trash")
+                                         .foregroundColor(.red)
+                             }
+                         }
                     }
                     label: {
-                        Label("Add", systemImage: "gear") .font(.system(size: 23))
+                        Label("Add", systemImage: "ellipsis.circle") .font(.system(size: 23))
                     }
                 }
                 /*ToolbarItem(placement: .navigationBarTrailing){
@@ -102,8 +137,12 @@ struct ContentView: View {
     
     
     func delete2(){
-        //card.remove(at: 2)
+        controlli.card.remove(at: 2)
         controlli.thereiscard[2] = false
+    }
+    func delete1(){
+        controlli.card.remove(at: 1)
+        controlli.thereiscard[1] = false
     }
 }
 
