@@ -28,8 +28,8 @@ Here are some screenshots of the application:
 ### How to install
 The code was developed with [XCode](https://apps.apple.com/it/app/xcode/id497799835?mt=12), which contains all the dependencies you need to view the application.
 In particular, after importing the project, you have two possibilities:
-- Start the Simulator <img align="right" src="https://github.com/loredeluca/MyMoney/blob/main/docs/run1.png" width=" 150" height=auto>
-- By connecting your phone and then run the project <img align="right" src="https://github.com/loredeluca/MyMoney/blob/main/docs/run2.png" width=" 150" height=auto> 
+- Start the Simulator <img align="right" src="https://github.com/loredeluca/MyMoney/blob/main/docs/run1.png" width=" 200" height=auto>
+- By connecting your phone and then run the project <img align="right" src="https://github.com/loredeluca/MyMoney/blob/main/docs/run2.png" width=" 200" height=auto> 
 
 ### More details
 More information on the development phases (**Needfinding**, **Code Development** and **Usability Test**) can be found in the report '[MyMoney: app per la gestione delle finanze personali per dispositivi iOS]()' or in the homonymous [presentation]() in this repository 
