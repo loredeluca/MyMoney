@@ -8,69 +8,85 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var controlli = Controls()
-    @ObservedObject var wallet1 = Wallet1_Obs()
+    @ObservedObject var controls = Controls()
+    @ObservedObject var wallet1 = Wallet_Obs()
+    @ObservedObject var wallet2 = Wallet_Obs()
+    @ObservedObject var wallet3 = Wallet_Obs()
+
     
-    //@State var b: String = ""
     @State var setAvailableBalance = false
     @State var setBudget = false
+    @State var confirmDelete = false
 
     var body: some View {
         NavigationView{
             VStack {
-                //Carte
                 ZStack{
-                    if controlli.thereiscard[0]{
+                    //Card1 and Objects1
+                    if controls.thereiscard[0]{
                         VStack{
-                            Card1(controlli: controlli)
+                            Card1(controls: controls)
                                 .animation(.easeInOut)
-                                .offset(x:0, y: controlli.e1() ? 0 : (controlli.e2() ? 750 : (controlli.e3() ? 750 : 100)) )
-                            InfoBlock1(c: controlli, w1: wallet1)
+                                .offset(x:0, y: controls.e1() ? 0 : (controls.e2() ? 750 : (controls.e3() ? 750 : 100)) )
+                            InfoBlock(c: controls, w: wallet1)
                                 .animation(.easeInOut)
-                                .offset(x:0, y: controlli.expanded1 ? 0 : (controlli.expanded2 ? 750 : (controlli.expanded3 ? 750 : 750))) //inveec di 0, vale 215
-                            LastTransaction1(c: controlli, w1: wallet1)
+                                .offset(x:0, y: controls.e1() ? 0 : (controls.e2() ? 750 : (controls.e3() ? 750 : 750)))
+                            LastTransaction(c: controls, w: wallet1)
                                 .animation(.easeInOut)
-                                .offset(x:0, y: controlli.expanded1 ? 0 : (controlli.expanded2 ? 750 : (controlli.expanded3 ? 750 : 750)))
+                                .offset(x:0, y: controls.e1() ? 0 : (controls.e2() ? 750 : (controls.e3() ? 750 : 750)))
                         }
                     }
-                    if controlli.thereiscard[1]{
+                    //Card2 and Objects2
+                    if controls.thereiscard[1]{
                         VStack{
-                            Card2(controlli: controlli)
+                            Card2(controls: controls)
                                 .animation(.easeInOut)
-                                .offset(x: 0, y: controlli.e2() ? -10 : (controlli.e1() ? 750 : (controlli.e3() ? 750 : -70)))
+                                .offset(x: 0, y: controls.e2() ? 0 : (controls.e1() ? 750 : (controls.e3() ? 750 : 150)))
+                            InfoBlock(c: controls, w: wallet2)
+                                .animation(.easeInOut)
+                                .offset(x: 0, y: controls.e2() ? 0 : (controls.e1() ? 750 : (controls.e3() ? 750 : 750)))
+                            LastTransaction(c: controls, w: wallet2)
+                                .animation(.easeInOut)
+                                .offset(x: 0, y: controls.e2() ? 0 : (controls.e1() ? 750 : (controls.e3() ? 750 : 750)))
                         }
                     }
-                    if controlli.thereiscard[2]{
-                        Card3(controlli: controlli)
+                    //Card2 and Objects2
+                    if controls.thereiscard[2]{
+                        Card3(controls: controls)
                             .animation(.easeInOut)
-                            .offset(x: 0, y: controlli.e3() ? -10 : (controlli.e1() ? 750 : (controlli.e2() ? 750 : -120)))
+                            .offset(x: 0, y: controls.e3() ? -210 : (controls.e1() ? 750 : (controls.e2() ? 750 : (setBudget || setAvailableBalance ? 70: -10))))
+                        InfoBlock(c: controls, w: wallet3)
+                            .animation(.easeInOut)
+                            .offset(x: 0, y: controls.e3() ? 20 : (controls.e1() ? 750 : (controls.e2() ? 750 : 750)))
+                        LastTransaction(c: controls, w: wallet3)
+                            .animation(.easeInOut)
+                            .offset(x: 0, y: controls.e3() ? 460 : (controls.e1() ? 750 : (controls.e2() ? 750 : 750)))
                     }
                 }
                 
-                //Pulsante Aggiungi Carte
-                NewCardSheet(c: controlli, w1: wallet1)
+                //Button to add new cards
+                NewCardSheet(c: controls, w: controls.cardCount() == 1 ? wallet2 : wallet3)
                     .offset(x: 0, y: setBudget || setAvailableBalance ? 105 : -50)
                     .disabled(setBudget || setAvailableBalance)
                 
-                //AddBudget
+                //Add a new Budget
                 if setBudget{
-                    AddBugdet(c: controlli,setBudget: $setBudget)
+                    AddBugdet(c: controls,setBudget: $setBudget)
                 }
-                //AddAvailableBalance
+                //Add a AvailableBalance
                 if setAvailableBalance{
-                    AddAvailableBalance(w1: wallet1, setAvailableBalance: $setAvailableBalance)
+                    AddAvailableBalance(w: controls.e1() ? wallet1 : (controls.e2() ? wallet2 : wallet3), setAvailableBalance: $setAvailableBalance)
                 }
-                
-                
-                
-                
-            }//endPrimoVStack
+                //Confirm card deletion
+                if confirmDelete{
+                    Confirm(c: controls, confirm: $confirmDelete)
+                }
+            }//endFirstVStack
             .navigationBarTitle("Personal Finance")
             .navigationBarItems(
                 trailing:
-                    NewTransactionSheet(c: controlli, w1: wallet1)
+                    NewTransactionSheet(c: controls, w: controls.e1() ? wallet1 : (controls.e2() ? wallet2 : wallet3))
             )
-            //FUNZIONA MA decidere cosa scrivere
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Menu{
@@ -86,7 +102,7 @@ struct ContentView: View {
                             }) {
                                 Label("Nuovo Saldo Disponibile", systemImage: "banknote")
                                         .foregroundColor(.red)
-                            }
+                            }.disabled(!controls.e1() && !controls.e2() && !controls.e3())
                             Button(action: {
                                 if !setAvailableBalance{
                                     setBudget.toggle()
@@ -103,95 +119,26 @@ struct ContentView: View {
 
                          Section(header: Text("Secondary actions")) {
                              Button(action: {
-                                if controlli.thereiscard[2]{
-                                    delete2()
-                                }
-                                if controlli.thereiscard[1] && !controlli.thereiscard[2]{
-                                    delete1()
-                                }
-                                if !controlli.thereiscard[1] && !controlli.thereiscard[2]{
-                                    //non fa nulla
-                                }
+                                confirmDelete.toggle()
                              }) {
                                  Label("Elimina Carta", systemImage: "trash")
                                          .foregroundColor(.red)
-                             }
+                             }.disabled(!controls.e2() && !controls.e3())
                          }
                     }
                     label: {
                         Label("Add", systemImage: "ellipsis.circle") .font(.system(size: 23))
                     }
                 }
-                /*ToolbarItem(placement: .navigationBarTrailing){
-                    PROVA(c: controlli, w1: wallet1)
-                    //PLUS(controlli: controlli ,mywallet: wallet1)
-                }*/
             }//endToolbar
         }//endNavigationView
         
     }
     
-    
-    //Funzioni
-    
-    
-    
-    func delete2(){
-        controlli.card.remove(at: 2)
-        controlli.thereiscard[2] = false
-    }
-    func delete1(){
-        controlli.card.remove(at: 1)
-        controlli.thereiscard[1] = false
-    }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
-
-/*
-//BOZZA PER FARE I GRAFICI
-struct LineGraph: Shape {
-    var dataPoints: [CGFloat]
-
-    func path(in rect: CGRect) -> Path {
-        func point(at ix: Int) -> CGPoint {
-            let point = dataPoints[ix]
-            let x = rect.width * CGFloat(ix) / CGFloat(dataPoints.count - 1)
-            let y = (1-point) * rect.height
-            return CGPoint(x: x, y: y)
-        }
-
-        return Path { p in
-            guard dataPoints.count > 1 else { return }
-            let start = dataPoints[0]
-            p.move(to: CGPoint(x: 0, y: (1-start) * rect.height))
-            for idx in dataPoints.indices {
-                p.addLine(to: point(at: idx))
-            }
-        }
-    }
-}
-
-//dati
-@State var on = true
-
-let data: [CGFloat] = [ 0.1,0.3,0.1,0.2,0.1,0.7,0.4] //più ne metti più ne aggiunge
-//questo va incollato nel var body
-LineGraph(dataPoints: data)
-                .trim(to: on ? 1 : 0)
-                .stroke(Color.red, lineWidth: 2)
-                .aspectRatio(16/9, contentMode: .fit)
-                .border(Color.gray, width: 1)
-                .padding()
-Button("Animate") {
-    withAnimation(.easeInOut(duration: 2)) {
-        self.on.toggle()
-    }
-}
-.offset(x: 0, y: setBudget ? 105 : -50)*/

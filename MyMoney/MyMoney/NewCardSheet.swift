@@ -9,9 +9,8 @@ import SwiftUI
 
 struct NewCardSheet: View {
     @ObservedObject var c: Controls
-    @ObservedObject var w1: Wallet1_Obs
+    @ObservedObject var w: Wallet_Obs
     
-    //@State var card : [String] = ["portafoglio"]
     //sheet
     @State var isShowSheet = false
     
@@ -24,7 +23,8 @@ struct NewCardSheet: View {
     
     @State private var selectedDate = Date()
     
-    @State private var amount = ""
+    @State var amount = ""
+    @State var ab : String = ""
     
     @State private var selectedEntryIndex = 0
     
@@ -54,9 +54,6 @@ struct NewCardSheet: View {
             NavigationView {
                 Form {
                     VStack{
-                        //smallCard(smallCColor: bgColor , smallCName: name, smallCCircuit: circuitEntry[circuitTag])
-                        
-                        //SmallCard
                         ZStack{
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .shadow(radius: 5.0)
@@ -93,7 +90,7 @@ struct NewCardSheet: View {
                         Divider()
                         //Spacer().frame(height: 15)
                         
-                        //Compilazione Campi
+                        //Fill the field
                         TextField("Nome", text: $name)
                             .font(.system(size: 18))
                         Divider()
@@ -104,9 +101,6 @@ struct NewCardSheet: View {
                             Picker("\(circuitEntry[circuitTag])", selection: $circuitTag) {
                                 Text("Mastercard").tag(0)
                                 Text("Visa").tag(1)
-                                /*Text("Uscite")
-                                    .font(.system(size: 18))
-                                    .tag(2)*/
                             }
                             .foregroundColor(.black)
                             .font(.system(size: 18))
@@ -117,13 +111,12 @@ struct NewCardSheet: View {
                         DatePicker(selection: $selectedDate, in: ...Date(), displayedComponents: [.date]) {
                             Text("Data")
                         }.accentColor(.black)
-                        //.frame(width: 100, alignment: .trailing)//.center)
                         
                         VStack{
                             Divider()
                             Spacer().frame(height: 15)
                             HStack{
-                                TextField("Importo", text: $amount)
+                                TextField("Importo", text: $ab)
                                     .font(.system(size: 18))
                                 Text("€")
                             }
@@ -145,6 +138,9 @@ struct NewCardSheet: View {
                     trailing:
                         Button(action: {
                             addCard()
+                            if ab != ""{
+                                w.setAvailableBalance(value: Float(ab)!)
+                            }
                         }){
                             Text("Aggiungi")
                         })
@@ -153,7 +149,7 @@ struct NewCardSheet: View {
         }//endSheet
     }
     
-    //funzioni
+    //Functions
     func addCard(){
         self.isShowSheet.toggle()
         c.app(name: name, circuit: circuitEntry[circuitTag])

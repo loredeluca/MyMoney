@@ -11,7 +11,7 @@ extension ContentView {
     
     struct NewTransactionSheet: View {
         @ObservedObject var c: Controls
-        @ObservedObject var w1: Wallet1_Obs
+        @ObservedObject var w: Wallet_Obs
 
         @State var showingDetail = false
         
@@ -33,7 +33,6 @@ extension ContentView {
         
         @State var note = ""
         
-
         var body: some View {
             Button(action: {
                 self.showingDetail.toggle()
@@ -41,10 +40,9 @@ extension ContentView {
                 Image(systemName: "plus.circle")
                     .resizable()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(c.e1() ? .blue : .white)
-                //Text("Show Detail")
+                    .foregroundColor(c.e1() || c.e2() || c.e3() ? .blue : .white)
             }
-            .disabled(!c.e1())
+            .disabled(!c.e1() && !c.e2() && !c.e3())
             .sheet(isPresented: $showingDetail) {
                 NavigationView {
                     Form {
@@ -105,7 +103,6 @@ extension ContentView {
                                 //Divider()
                             }
                         }//End Primo VStack sheet
-                        //TextField("Username", text: $username)
                     }
                     .navigationBarItems(
                         leading:
@@ -123,35 +120,29 @@ extension ContentView {
                                 print("Button pressed...")
                                 if amount != ""{
                                     if self.selectedIndex == 0{
-                                        w1.addImage(value: "chevron.up.circle.fill")
-                                        w1.addCategory(value: categoryEntry[selectedEntryIndex])
-                                        w1.addName(value: name)
-                                        w1.addDate(value: selectedDate)
-                                        w1.addOperation(value: "+ € " + amount)
-                                        w1.addINOp(value: Float(amount)!)
-                                        w1.add(value: Float(amount) ?? 0)
-                                        //c.updateCardTotBal(value: 0, op: Int(amount) ?? 0)
-                                    }
+                                        w.addImage(value: "chevron.up.circle.fill")
+                                        w.addCategory(value: categoryEntry[selectedEntryIndex])
+                                        w.addName(value: name)
+                                        w.addDate(value: selectedDate)
+                                        w.addOperation(value: "+ € " + amount)
+                                        w.addINOp(value: Float(amount)!)
+                                        w.add(value: Float(amount) ?? 0)                                    }
                                     else{
-                                        w1.addImage(value: "chevron.down.circle.fill")
-                                        w1.addCategory(value: categoryExit[selectedExitIndex])
-                                        w1.addName(value: name)
-                                        w1.addDate(value: selectedDate)
-                                        w1.addOperation(value: "- € " + amount)
-                                        w1.addOUTOp(value: Float(amount)!)
-                                        w1.remove(value: Float(amount) ?? 0)
+                                        w.addImage(value: "chevron.down.circle.fill")
+                                        w.addCategory(value: categoryExit[selectedExitIndex])
+                                        w.addName(value: name)
+                                        w.addDate(value: selectedDate)
+                                        w.addOperation(value: "- € " + amount)
+                                        w.addOUTOp(value: Float(amount)!)
+                                        w.remove(value: Float(amount) ?? 0)
                                         c.updateBudget(value: Float(amount) ?? 0)
-                                        //c.updateCardTotBal(value: 0, op: Int(amount) ?? 0)
-                                        //mywallet.reduceBudget(value: Int(amount) ?? 0)
-                                        //mywallet.reduceCircle()
-                                        //print(mywallet.budget)
                                     }
                                 }
                                 amount = ""
                                 name = ""
                                 note = ""
-                                //controllo se Budget è da resettare
-                                if !w1.getMonth(value: selectedDate){
+                                //Check budget
+                                if !w.getMonth(value: selectedDate){
                                     c.resetCircleBudget()
                                 }
                                 self.showingDetail.toggle()

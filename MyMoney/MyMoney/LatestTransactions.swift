@@ -8,23 +8,18 @@
 import SwiftUI
 
 extension ContentView{
-    struct LastTransaction1: View {
+    struct LastTransaction: View {
         @ObservedObject var c: Controls
-        @ObservedObject var w1: Wallet1_Obs
+        @ObservedObject var w: Wallet_Obs
         
         var body: some View {
             VStack{
                 TitleTransaction()
-                ButtonsTransaction1(c: c)
-                ListTransactions1(c: c, w1: w1)
+                ButtonsTransaction(c: c)
+                ListTransactions(c: c, w: w)
             }
-            //.animation(.easeInOut)
-            //.offset(x:0, y: c.expanded1 ? 0 : (c.expanded2 ? 750 : (c.expanded3 ? 750 : 750)))
         }
     }
-    
-    //LastTransaction2
-    //LastTransaction3
 }
 
 
@@ -39,42 +34,42 @@ struct TitleTransaction: View {
     }
 }
 
-struct ButtonsTransaction1: View {
+struct ButtonsTransaction: View {
     @ObservedObject var c: Controls
     
     var body: some View{
         HStack{
         //bottone 1
             Button(action: {
-                c.didTapAllW1()
+                c.didTapAllW()
             }, label: {
             Text("Totale")
         })
         .frame(width: 70, height: 30)
         .foregroundColor(Color.black)
-        .background(c.didTapW1[0] ? Color.blue : Color.gray)//.opacity(0.7)
+        .background(c.didTapW[0] ? Color.blue : Color.gray)//.opacity(0.7)
         .clipShape(RoundedRectangle(cornerRadius: 15.0))
             
         //bottone 2
             Button(action: {
-                c.didTapInW1()
+                c.didTapInW()
             }, label: {
             Text("Entrate")
         })
         .frame(width: 70, height: 30)
         .foregroundColor(Color.black)
-        .background(c.didTapW1[1] ? Color.green : Color.gray)//.opacity(0.7)
+        .background(c.didTapW[1] ? Color.green : Color.gray)//.opacity(0.7)
         .clipShape(RoundedRectangle(cornerRadius: 15.0))
             
         //bottone 3
             Button(action: {
-                c.didTapOutW1()
+                c.didTapOutW()
             }, label: {
             Text("Uscite")
         })
         .frame(width: 70, height: 30)
         .foregroundColor(Color.black)
-        .background(c.didTapW1[2] ? Color.red : Color.gray)//.opacity(0.7)
+        .background(c.didTapW[2] ? Color.red : Color.gray)//.opacity(0.7)
         .clipShape(RoundedRectangle(cornerRadius: 15.0))
     
         }
@@ -84,26 +79,26 @@ struct ButtonsTransaction1: View {
     }
 }
 
-struct ListTransactions1: View{
+struct ListTransactions: View{
     @ObservedObject var c: Controls
-    @ObservedObject var w1: Wallet1_Obs
+    @ObservedObject var w: Wallet_Obs
     
     var body: some View{
         ScrollView(.vertical) {
             VStack(spacing: 5) {
-                if w1.getCountImage()>0{ //controllo se c'è almeno un elemento
-                    ForEach(w1.newoperation.reversed(), id: \.self) { value in
+                if w.getCountImage()>0{ //controllo se c'è almeno un elemento
+                    ForEach(w.newoperation.reversed(), id: \.self) { value in
                         //mostra Tutte le transazioni
-                        if c.didTapW1[0]{
-                            transactionView1(value: value, w1: w1)
+                        if c.didTapW[0]{
+                            transactionView(value: value, w: w)
                         }
                         //mostra le Entrate
-                        if c.didTapW1[1] && w1.getImage(value: w1.newoperation.firstIndex(of: value)!) == "chevron.up.circle.fill"{
-                            transactionView1(value: value, w1: w1)
+                        if c.didTapW[1] && w.getImage(value: w.newoperation.firstIndex(of: value)!) == "chevron.up.circle.fill"{
+                            transactionView(value: value, w: w)
                         }
                         //mostra le Uscite
-                        if c.didTapW1[2] && w1.getImage(value: w1.newoperation.firstIndex(of: value)!) == "chevron.down.circle.fill"{
-                            transactionView1(value: value, w1: w1)
+                        if c.didTapW[2] && w.getImage(value: w.newoperation.firstIndex(of: value)!) == "chevron.down.circle.fill"{
+                            transactionView(value: value, w: w)
                         }
                     }
                 }
@@ -114,23 +109,22 @@ struct ListTransactions1: View{
 }
 
 
-struct transactionView1: View{
+struct transactionView: View{
     var value : String
-    @ObservedObject var w1 : Wallet1_Obs
-    //@ObservedObject var myw2 : Wallet1_Obs
+    @ObservedObject var w : Wallet_Obs
 
     var body: some View{
         HStack{
-            Image(systemName: "\(w1.getImage(value: w1.newoperation.firstIndex(of: value)!))" as String)
-                .foregroundColor(w1.getImage(value: w1.newoperation.firstIndex(of: value)!) == "chevron.up.circle.fill" ? Color.green : Color.red)
+            Image(systemName: "\(w.getImage(value: w.newoperation.firstIndex(of: value)!))" as String)
+                .foregroundColor(w.getImage(value: w.newoperation.firstIndex(of: value)!) == "chevron.up.circle.fill" ? Color.green : Color.red)
                 .frame(maxWidth: 600, alignment: .leading)
                 .offset(x:20, y: -5)
             VStack{
-                Text("\(w1.getName(value: w1.newoperation.firstIndex(of: value)!))" as String)
-                    //\(w1.getName(value: w1.newoperation.firstIndex(of: value)!)) per aggiungere il nome dell'op
+                Text("\(w.getName(value: w.newoperation.firstIndex(of: value)!))" as String)
+                    //\(w.getName(value: w.newoperation.firstIndex(of: value)!)) per aggiungere il nome dell'op
                     .frame(maxWidth: 300, alignment: .leading)
                     .offset(x:-127, y: 0)
-                Text("\(w1.getCategory(value: w1.newoperation.firstIndex(of: value)!)) - \(w1.getDate(value: w1.newoperation.firstIndex(of: value)!))")
+                Text("\(w.getCategory(value: w.newoperation.firstIndex(of: value)!)) - \(w.getDate(value: w.newoperation.firstIndex(of: value)!))")
                     .font(.system(size: 14))
                     .frame(maxWidth: 600, alignment: .leading)
                     .offset(x:-127, y: 0)

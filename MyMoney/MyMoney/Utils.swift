@@ -11,10 +11,8 @@ extension ContentView {
     
     struct AddAvailableBalance: View {
         @State var ab: String = ""
-        @ObservedObject var w1: Wallet1_Obs
+        @ObservedObject var w: Wallet_Obs
         @Binding var setAvailableBalance: Bool
-        
-            
         
         var body: some View{
             ZStack{
@@ -51,7 +49,7 @@ extension ContentView {
                         Divider()
                         Button(action: {
                             if ab != ""{
-                                w1.setAvailableBalance(value: Float(ab)!)
+                                w.setAvailableBalance(value: Float(ab)!)
                             }
                             setAvailableBalance.toggle()
                         }, label: {
@@ -67,11 +65,10 @@ extension ContentView {
     }
     
     struct AddBugdet: View {
-        @State var b: String = ""
         @ObservedObject var c: Controls
         @Binding var setBudget: Bool
         
-            
+        @State var b: String = ""
         
         var body: some View{
             ZStack{
@@ -103,6 +100,7 @@ extension ContentView {
                         Button(action: {
                             if b != ""{
                                 c.setBudget(value: Float(b)!)
+                                c.resetCircleBudget()
                             }
                             setBudget.toggle()
                         }, label: {
@@ -119,9 +117,9 @@ extension ContentView {
     
     
     struct Confirm: View {
+        @ObservedObject var c: Controls
         @Binding var confirm: Bool
             
-        
         var body: some View{
             ZStack{
                 ZStack{
@@ -162,7 +160,19 @@ extension ContentView {
                             Divider()
                                 .offset(x: 0,y: -8)
                             Button(action: {
-                                //Elimina qualcosa
+                                if c.thereiscard[1] && !c.thereiscard[2]{
+                                    delete1()
+                                    c.expanded2 = false
+                                    //controls.e3()=false
+                                }
+                                if c.thereiscard[2]{
+                                    delete2()
+                                    c.expanded3 = false
+                                    //controls.e2()=false
+                                }
+                                if !c.thereiscard[1] && !c.thereiscard[2]{
+                                    //Does not delete last card
+                                }
                                 confirm.toggle()
                             }, label: {
                                 Text("Elimina")
@@ -175,6 +185,16 @@ extension ContentView {
                 }.offset(x: 0, y: -350)
                 
             }
+        }
+        
+        //Functions
+        func delete2(){
+            c.card.remove(at: 2)
+            c.thereiscard[2] = false
+        }
+        func delete1(){
+            c.card.remove(at: 1)
+            c.thereiscard[1] = false
         }
     }
  }

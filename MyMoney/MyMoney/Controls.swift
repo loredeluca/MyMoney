@@ -19,7 +19,6 @@ class Controls: ObservableObject{
         return card.count
     }
     
-    
     // FIRST PAGE
     @Published var expanded1: Bool = false
     @Published var expanded2: Bool = false
@@ -95,51 +94,48 @@ class Controls: ObservableObject{
          self.progressCircle = 0.0
         budget = tmp
      }
-     
     
+    //WALLET
+    @Published var sheetTotW: Bool = false
+    @Published var sheetInW: Bool = false
+    @Published var sheetOutW: Bool = false
     
-    
-    //WALLET1
-    @Published var sheetTotW1: Bool = false
-    @Published var sheetInW1: Bool = false
-    @Published var sheetOutW1: Bool = false
-    
-    func toggleSheetTotW1(){
-        sheetTotW1.toggle()
+    func toggleSheetTotW(){
+        sheetTotW.toggle()
     }
-    func TotW1()->Bool{
-        return sheetTotW1
+    func TotW()->Bool{
+        return sheetTotW
     }
-    func toggleSheetInW1(){
-        sheetInW1.toggle()
+    func toggleSheetInW(){
+        sheetInW.toggle()
     }
-    func InW1()->Bool{
-        return sheetInW1
+    func InW()->Bool{
+        return sheetInW
     }
-    func toggleSheetOutW1(){
-        sheetOutW1.toggle()
+    func toggleSheetOutW(){
+        sheetOutW.toggle()
     }
-    func OutW1()->Bool{
-        return sheetOutW1
+    func OutW()->Bool{
+        return sheetOutW
     }
     
-    //LastTransaction //USATI PER DAVVERO IN LATEST TRANSACTION
-    @Published var didTapW1 = [true, false, false]
+    //LatestTransaction
+    @Published var didTapW = [true, false, false]
     
-    func didTapAllW1(){
-        didTapW1[0] = true
-        didTapW1[1] = false
-        didTapW1[2] = false
+    func didTapAllW(){
+        didTapW[0] = true
+        didTapW[1] = false
+        didTapW[2] = false
     }
-    func didTapInW1(){
-        didTapW1[1] = true
-        didTapW1[0] = false
-        didTapW1[2] = false
+    func didTapInW(){
+        didTapW[1] = true
+        didTapW[0] = false
+        didTapW[2] = false
     }
-    func didTapOutW1(){
-        didTapW1[2] = true
-        didTapW1[0] = false
-        didTapW1[1] = false
+    func didTapOutW(){
+        didTapW[2] = true
+        didTapW[0] = false
+        didTapW[1] = false
     }
     
     

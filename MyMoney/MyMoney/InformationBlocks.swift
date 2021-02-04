@@ -9,39 +9,32 @@ import SwiftUI
 
 extension ContentView {
 
-    struct InfoBlock1: View {
+    struct InfoBlock: View {
         @ObservedObject var c: Controls
-        @ObservedObject var w1 : Wallet1_Obs
+        @ObservedObject var w : Wallet_Obs
 
         var body: some View {
             HStack{
                 VStack{
-                    SaldoDisponibile1(c: c, w1: w1)
-                    NavigationLink(destination: InfoGraphs(w1: w1)) {
-                        BilancioMensile1(c: c, w1: w1)
+                    SaldoDisponibile(c: c, w: w)
+                    NavigationLink(destination: InfoGraphs(w: w)) {
+                        BilancioMensile(c: c, w: w)
                     }//.buttonStyle(PlainButtonStyle())
-                   
                 }
                 Spacer().frame(width: 1)
-                Budget1(c: c, w1: w1)
+                Budget(c: c, w: w)
             }
-            //.animation(.easeInOut)
-            //.offset(x:0, y: c.expanded1 ? 0 : (c.expanded2 ? 750 : (c.expanded3 ? 750 : 750))) //inveec di 0, vale 215
-            
         }
     }
-    
-    //InfoBlock2
-    //InfoBlock3
 }
 
 
 
 
 
-struct SaldoDisponibile1: View {
+struct SaldoDisponibile: View {
     @ObservedObject var c: Controls
-    @ObservedObject var w1 : Wallet1_Obs
+    @ObservedObject var w : Wallet_Obs
     
     var body: some View{
         ZStack {
@@ -57,7 +50,7 @@ struct SaldoDisponibile1: View {
                     .frame(maxWidth: 300, alignment: .leading)
                     .foregroundColor(.black)
                     .offset(x: 20, y: -5)
-                Text("€ \(w1.availableBalance, specifier: "%.2f")")//\(c.getCardTotBal(value: 0))")
+                Text("€ \(w.availableBalance, specifier: "%.2f")")//\(c.getCardTotBal(value: 0))")
                     .font(.system(size: 25))
                     .fontWeight(.bold)
                     .frame(maxWidth: 300, alignment: .leading)
@@ -68,9 +61,9 @@ struct SaldoDisponibile1: View {
     }
 }
 
-struct BilancioMensile1: View{
+struct BilancioMensile: View{
     @ObservedObject var c: Controls
-    @ObservedObject var w1 : Wallet1_Obs
+    @ObservedObject var w : Wallet_Obs
     
     var body: some View{
         ZStack{
@@ -87,20 +80,20 @@ struct BilancioMensile1: View{
                     .foregroundColor(.black)
                     .offset(x: 20, y: -8)
                 VStack{
-                    Text("Totale € \(w1.getTotal(), specifier: "%.2f")" )//+ String(w1.getTotal()) )
-                        .font(.system(size: c.didTapW1[0] ? 18 : 15 ))
+                    Text("Totale € \(w.getTotal(), specifier: "%.2f")" )//+ String(w.getTotal()) )
+                        .font(.system(size: c.didTapW[0] ? 18 : 15 ))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)
                         .foregroundColor(.blue)
                         .offset(x: 20, y: -3)
-                    Text("Entrate € \(w1.getIn(), specifier: "%.2f")")// + String(w1.getIn()) )
-                        .font(.system(size: c.didTapW1[1] ? 18 : 15))
+                    Text("Entrate € \(w.getIn(), specifier: "%.2f")")// + String(w.getIn()) )
+                        .font(.system(size: c.didTapW[1] ? 18 : 15))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)
                         .foregroundColor(.green)
                         .offset(x: 20, y: 2)
-                    Text("Uscite € \(w1.getOut(), specifier: "%.2f")")// + String(w1.getOut()) )
-                        .font(.system(size: c.didTapW1[2] ? 18 : 15))
+                    Text("Uscite € \(w.getOut(), specifier: "%.2f")")// + String(w.getOut()) )
+                        .font(.system(size: c.didTapW[2] ? 18 : 15))
                         .fontWeight(.semibold)
                         .frame(maxWidth: 300, alignment: .leading)
                         .foregroundColor(.red)
@@ -111,9 +104,9 @@ struct BilancioMensile1: View{
     }
 }
 
-struct Budget1: View {
+struct Budget: View {
     @ObservedObject var c: Controls
-    @ObservedObject var w1 : Wallet1_Obs
+    @ObservedObject var w : Wallet_Obs
     
     @State var progressValue: Float = 0.0
     @State private var isCircleRotating = true
@@ -143,8 +136,6 @@ struct Budget1: View {
         }
     }
 }
-
-
 
 struct ProgressBar: View {
     @Binding var value: Float
