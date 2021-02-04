@@ -1,7 +1,7 @@
 # MyMoney
 
 "MyMoney" is a personal finance app for iOS devices.
-The application designed respecting Apple's Material Design rules allows you to manage your finances, with various features:
+The application designed respecting [Apple's Material Design](https://developer.apple.com/design/resources/) rules allows you to manage your finances, with various features:
 - Manage multiple wallets
 - Add and view incoming or outgoing transactions.
 - Categorize income / expenses
