@@ -32,5 +32,5 @@ In particular, after importing the project, you have two possibilities:
 - By connecting your phone and then run the project <img align="right" src="https://github.com/loredeluca/MyMoney/blob/main/docs/run2.png" width=" 200" height=auto> 
 
 ### More details
-More information on the development phases (**Needfinding**, **Code Development** and **Usability Test**) can be found in the report '[MyMoney: app per la gestione delle finanze personali per dispositivi iOS]()' or in the homonymous [presentation]() in this repository 
+More information on the development phases (**Needfinding**, **Code Development** and **Usability Test**) can be found in the report '[MyMoney: app per la gestione delle finanze personali per dispositivi iOS](https://github.com/loredeluca/MyMoney/blob/main/docs/Paper_Human_Computer_Interaction.pdf)' or in the homonymous [presentation](https://github.com/loredeluca/MyMoney/blob/main/docs/Slide_Personal_Finance___HCI_Project_.pdf) in this repository 
 
